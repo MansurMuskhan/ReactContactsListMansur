@@ -4,18 +4,14 @@ import {Context} from "../index";
 import {Button, Container, Grid} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import {useCollectionData} from "react-firebase-hooks/firestore";
-import {useAuthState} from "react-firebase-hooks/auth";
 import { DataGrid, ruRU } from '@material-ui/data-grid';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import {NavLink} from "react-router-dom";
-import {LOGIN_ROUTE} from "../utils/consts";
 import SearchBar from "material-ui-search-bar";
 
 const Contacts = () => {
 
   const {auth, db} = useContext(Context)
-  const [user] = useAuthState(auth)
   const [value, setValue] = useState({
     name: '',
     text: '',
@@ -150,12 +146,8 @@ const Contacts = () => {
                   onChange={(searchVal) => requestSearch(searchVal)}
                   onCancelSearch={() => cancelSearch()}
                 />
-                    {user ?
-                        <Button onClick={() => auth.signOut()} variant={"contained"} color="secondary">Выйти</Button>
-                        :
-                        <NavLink to={LOGIN_ROUTE}>
-                            <Button variant={"contained"} color="secondary">Логин</Button>
-                        </NavLink>
+                    {
+                    <Button onClick={() => auth.signOut()} variant={"contained"} color="secondary">Выйти</Button>
                     }
                 </Grid>
               </Toolbar>
